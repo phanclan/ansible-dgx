@@ -15,7 +15,7 @@
   become_method: sudo
   remote_user: "{{ user }}"
   roles:
-    - common
+    - software 
     - role: community/ryanolson.docker
       ansible_user_id: "{{ user }}"
   tasks:
