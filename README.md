@@ -9,7 +9,7 @@ Ansible playbook for provisioning DGX-1 running vanilla Ubuntu 16.04 via MAAS to
 
 ## Installing and configuring MAAS to provision DGX-1
 
-> Instructions written for DGX-1 base OS image 3.0 (Ubuntu 16.04 LTS)
+> Instructions written for DGX-1 base OS image 3.0 (Ubuntu 16.04 LTS), Ansible `2.3.1.0` and MAAS `2.1.5+bzr5596-0ubuntu1`
    
 * Install MAAS on dedicated HW or VM
     * To simplify things you should use a single VLAN but MAAS can handle tagged interfaces
