@@ -1,0 +1,2 @@
+# Ansible nvidia docker
+- src: https://github.com/ryanolson/ansible-nvidia-docker.git

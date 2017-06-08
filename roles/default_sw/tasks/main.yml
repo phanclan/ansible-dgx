@@ -1,0 +1,31 @@
+---
+- name: update system
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: upgrade system
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: safe
+  when: (ansible_os_family == "Debian" and ansible_distribution_version in [ "14.04" ])
+
+- name: System upgrade
+  command: apt-get upgrade -y -qq
+  when: (ansible_os_family == "Debian" and ansible_distribution_version in [ "16.04" ])
+
+- name: Install Ubuntu packages
+  action: apt name={{ item }} state=latest
+  when: ansible_os_family == "Debian"
+  with_items: "{{ default_ubuntu_packages }}"
+  tags:
+    - packages
+
+- name: Install CentOS packages
+  action: yum name={{ item }} state=latest
+  when: ansible_os_family == "RedHat"
+  with_items: "{{ default_rhel_packages }}"
+  tags:
+    - packages

@@ -1,0 +1,70 @@
+---
+# ansible-playbook -i inventory -l dgx site.yml
+
+# Install ansible python dependency on Ubuntu 16.04
+- hosts: all
+  become: yes
+  become_method: sudo
+  remote_user: "{{ user }}"
+  gather_facts: no
+  roles:
+    - bootstrap
+
+- hosts: dgx
+  become: yes
+  become_method: sudo
+  remote_user: "{{ user }}"
+  roles:
+    - default_sw
+    - { role: ntp, tags: ntp }
+    - role: community/ryanolson.docker
+      ansible_user_id: "{{ user }}"
+      #- { role: cachefilesd, tags: [ 'cachefilesd', 'storage' ] }
+      #- cuda
+      #- collectd
+  tasks:
+  - name: modify default user
+    user:
+      name: "{{ user}}"
+      groups: docker
+      append: yes
+    tags:
+      - user
+  - name: change permissions on /raid
+    file:
+      path: /raid
+      state: directory
+      owner: root
+      group: root
+      mode: "1777"
+    tags:
+      - raid
+      - storage
+---
+# file internal.yml
+
+## Systems on nvidia corporate network
+- hosts: internal
+  remote_user: "{{ user }}"
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  roles:
+    - bootstrap
+    - ssh_add_key
+
+- hosts: internal
+  remote_user: root
+  roles:
+    - community/ansible-resolv_conf
+    - kerberos_client
+    - nfs-client
+    - yp-client
+    - user_mod
+    - autofs
+    - default_sw
+    - role: community/ansible-nvidia-docker
+      ansible_user_id: "{{ user }}"
+    - role: docker_net
+      when: (ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04")
+    - cuda

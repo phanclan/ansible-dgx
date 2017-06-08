@@ -1,0 +1,7 @@
+---
+# file bootstrap.yml
+
+- hosts: localhost
+  tasks:
+    - name: install role dependencies
+      local_action: command ansible-galaxy install --roles-path ./roles/community --force --ignore-errors -r requirements.yml

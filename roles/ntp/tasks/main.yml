@@ -1,0 +1,11 @@
+---
+# file roles/ntp/tasks/main.yml
+
+- name: ntp | install package
+  action: apt name={{ item }} state=latest
+  with_items:
+    - ntp
+    - ntpdate
+
+- name: ntp | enable and start daemon
+  service: name=ntp state=started enabled=true

@@ -1,0 +1,14 @@
+---
+
+# Default system PATH
+default_path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+default_ubuntu_packages:
+  - git
+  - curl
+  - vim
+  - mosh
+  - tmux
+  - screen
+  - unzip
+  - ipmitool

@@ -1,0 +1,20 @@
+policy_rc_d: /usr/sbin/policy-rc.d
+
+default_ubuntu_packages:
+  - git
+  - curl
+  - vim
+  - mosh
+  - tmux
+  - screen
+  - unzip
+  - ipmitool
+
+default_rhel_packages:
+  - git
+  - vim
+  - mosh
+  - unzip
+  - ipmitool
+  - wget
+  - kernel-devel
