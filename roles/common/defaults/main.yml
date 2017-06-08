@@ -7,3 +7,5 @@ default_ubuntu_packages:
   - screen
   - unzip
   - ipmitool
+  - ntp
+  - ntpdate
