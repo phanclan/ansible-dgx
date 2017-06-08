@@ -23,7 +23,7 @@ Ansible playbook for provisioning DGX-1 running vanilla Ubuntu 16.04 via MAAS to
 * Modify DGX-1 in MAAS:
     * Edit the primary interface and select the appropriate subnet and IP setting
     * Edit the `sdb` device from the available disks and create a mount point (RAID0 array)
-        * Mount to `/raid`
+        * Create a partition, `sdb1`, and mount to `/raid`
         * Options: `defaults,nofail`
     * The main OS disk `sda` should be configured properly by default
 * Deploy node using Ubuntu 16.04 LTS (Xenial) with default kernel (ga-16.04)
