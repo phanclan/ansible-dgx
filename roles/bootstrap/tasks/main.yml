@@ -1,5 +1,5 @@
 ---
-- name: bootstrap python 
+- name: install ansible dependencies
   script: roles/bootstrap/files/bootstrap.sh creates=/root/.ansible_bootstrap
   register: ans_preq
   changed_when: "'DONE' in ans_preq.stdout"

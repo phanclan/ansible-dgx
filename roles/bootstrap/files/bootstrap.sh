@@ -2,7 +2,7 @@
 
 if [ ! -f /root/.ansible_bootstrap ] ; then
   apt-get update
-  apt-get -y install python
+  apt-get -y install python aptitude
   touch /root/.ansible_bootstrap
   echo "DONE"
 fi
