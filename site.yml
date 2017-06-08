@@ -16,6 +16,7 @@
   remote_user: "{{ user }}"
   roles:
     - software 
+    - cachefilesd
     - role: community/ryanolson.docker
       ansible_user_id: "{{ user }}"
   tasks:
