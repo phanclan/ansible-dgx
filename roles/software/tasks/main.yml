@@ -1,9 +1,11 @@
 ---
-- name: add dgx repo
-  apt_repository:
-    filename: 'dgx'
-    repo: 'deb http://international.download.nvidia.com/dgx/repos/ xenial main multiverse restricted universe'
-    state: 'present'
+#- name: add dgx repo
+#apt_repository:
+#filename: 'dgx'
+#repo: 'deb http://international.download.nvidia.com/dgx/repos/ xenial main multiverse restricted universe'
+#state: 'present'
+#update_cache: 'yes'
+#validate_certs: 'no'
 
 - name: apt update
   apt:
