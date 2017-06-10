@@ -38,3 +38,8 @@ Install required external roles:
 Deploy:
 
 `ansible-playbook -i inventory -l dgx site.yml`
+
+## Notes:
+
+Internal DGX ISO source repo: https://gitlab.dgx.nvidia.com/devbox-image/digits-devbox-installer
+

@@ -1,3 +1,5 @@
+dgx_repo: 'deb http://international.download.nvidia.com/dgx/repos/ xenial main multiverse restricted universe'
+
 default_ubuntu_packages:
   - git
   - curl

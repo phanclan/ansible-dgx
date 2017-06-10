@@ -14,6 +14,8 @@
   become: yes
   become_method: sudo
   remote_user: "{{ user }}"
+  vars:
+      dgx_repo: 'deb http://cuda-internal.nvidia.com/release-candidates/repos/dgxserver-internal/ xenial main multiverse restricted universe'
   roles:
     - software 
     - cachefilesd
