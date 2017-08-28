@@ -1,0 +1,34 @@
+---
+# ansible-playbook -i inventory -l dgx software.yml
+
+- hosts: dgx-servers
+  become: yes
+  roles:
+    - dgx-software
+    - cachefilesd
+
+  tasks:
+
+  - name: clean up packages
+    apt:
+      autoremove: yes
+
+  - name: modify default user
+    user:
+      name: "{{ user}}"
+      groups: docker
+      append: yes
+    tags:
+      - user
+
+  - name: change permissions on /raid
+    file:
+      path: /raid
+      state: directory
+      owner: root
+      group: root
+      mode: "1777"
+    tags:
+      - raid
+      - storage
+

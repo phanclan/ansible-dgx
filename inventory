@@ -1,5 +1,11 @@
 [slurm-masters]
 slurm-master-01   ansible_ssh_host=10.31.228.60
 
-#[dgx]
-#dgx10    ansible_ssh_host=dgx
+[slurm-compute-nodes]
+
+
+[dgx-servers:children]
+#dgx*
+
+[telsa-servers:children]
+#<chip>-<gpu>-*
