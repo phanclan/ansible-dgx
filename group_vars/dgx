@@ -1,17 +1,114 @@
 ---
 
+ansible_user: ubuntu
+
 # Default system PATH
 default_path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-default_ubuntu_packages:
-  - git
-  - curl
-  - vim
-  - mosh
-  - tmux
-  - screen
-  - unzip
-  - ipmitool
-
 docker_bridge_ip: 192.168.99.1/24
 docker_container_ip: 192.168.99.0/24
+
+# default_ubuntu_packages:
+#   - apparmor
+#   - apt-transport-https
+#   - automake
+#   - bison
+#   - cachefilesd
+#   - chrpath
+#   - cmake
+#   - cryptsetup
+#   - cuda-drivers
+#   - cuda-drivers-diagnostic
+#   - curl
+#   - dapl2-utils
+#   - datacenter-gpu-manager
+#   - dbus-x11
+#   - dgx-docker-cleanup
+#   - dgx-docker-options
+#   - dgx-oem-config-bmc
+#   - dgx-oem-config-eula
+#   - dgx-raid-config
+#   - dgxserver-configurations
+#   - diffutils
+#   - dpatch
+#   - e2fsprogs
+#   - ecryptfs-utils
+#   - ethtool
+#   - fail2ban
+#   - file
+#   - findutils
+#   - flex
+#   - fuse
+#   - gdisk
+#   - gfortran
+#   - graphviz
+#   - grub-efi-amd64-signed
+#   - gzip
+#   - hostname
+#   - ibacm-dev
+#   - ibsim
+#   - ibsim-doc
+#   - ibutils
+#   - ibverbs-utils
+#   - ifenslave
+#   - infiniband-diags
+#   - init
+#   - installation-report
+#   - ipmitool
+#   - isc-dhcp-common
+#   - iser-dkms
+#   - kernel-mft-dkms
+#   - knem
+#   - knem-dkms
+#   - laptop-detect
+#   - libatm1
+#   - libdapl-dev
+#   - libfribidi0
+#   - libibcm-dev
+#   - libibmad-devel
+#   - libibmad-static
+#   - libibumad-devel
+#   - libibumad-static
+#   - libibverbs1-dbg
+#   - libmlx4-1-dbg
+#   - libmlx4-dev
+#   - libmlx5-1-dbg
+#   - libmlx5-dev
+#   - librdmacm-dev
+#   - librdmacm-utils
+#   - linux-generic
+#   - linux-image-extra-4.4.0-81-generic
+#   - linux-tools-4.4.0-81-generic
+#   - linux-tools-generic
+#   - login
+#   - logrotate
+#   - lshw
+#   - mft
+#   - mlnx-ethtool
+#   - mlnx-fw-updater
+#   - mstflint
+#   - ncurses-base
+#   - ncurses-bin
+#   - ncurses-term
+#   - nfs-common
+#   - nvidia-docker
+#   - nvidia-peer-memory
+#   - nvidia-peer-memory-dkms
+#   - nvidia-sysinfo-dgx
+#   - ofed-scripts
+#   - opensm
+#   - os-prober
+#   - perftest
+#   - psmisc
+#   - quilt
+#   - shim-signed
+#   - smartmontools
+#   - srp-dkms
+#   - srptools
+#   - ssh
+#   - swig
+#   - tk
+#   - ubuntu-minimal
+#   - usbutils
+#   - vim
+#   - wget

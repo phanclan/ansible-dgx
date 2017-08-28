@@ -1,41 +1,59 @@
 ---
 # ansible-playbook -i inventory -l dgx site.yml
 
+
 # Install ansible python dependency on Ubuntu 16.04
 - hosts: all
   become: yes
-  become_method: sudo
-  remote_user: "{{ user }}"
-  gather_facts: no
-  roles:
-    - bootstrap
+# become_method: sudo
+# remote_user: "{{ user }}"
 
-- hosts: dgx
-  become: yes
-  become_method: sudo
-  remote_user: "{{ user }}"
-  vars:
-      dgx_repo: 'deb http://cuda-internal.nvidia.com/release-candidates/repos/dgxserver-internal/ xenial main multiverse restricted universe'
+  gather_facts: False
+  pre_tasks:
+
+    - name: Install Python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when: output.stdout != ""
+
+    - hostname:
+        name: "{{ inventory_hostname }}"
+
+#   - setup: # aka gather_facts
+
   roles:
-    - software 
-    - cachefilesd
-    - role: community/ryanolson.docker
-      ansible_user_id: "{{ user }}"
+    - local-apt
+    - hosts
+
+- hosts: slurm-masters
+  become: yes
+# become_method: sudo
+# remote_user: "{{ user }}"
+  roles:
+#   - dgx-software
+#   - cachefilesd
+    - { role: slurm, is_controller: yes }
+
   tasks:
-  - name: modify default user
-    user:
-      name: "{{ user}}"
-      groups: docker
-      append: yes
-    tags:
-      - user
-  - name: change permissions on /raid
-    file:
-      path: /raid
-      state: directory
-      owner: root
-      group: root
-      mode: "1777"
-    tags:
-      - raid
-      - storage
+  - name: clean up packages
+    apt:
+      autoremove: yes
+
+# - name: modify default user
+#   user:
+#     name: "{{ user}}"
+#     groups: docker
+#     append: yes
+#   tags:
+#     - user
+#
+# - name: change permissions on /raid
+#   file:
+#     path: /raid
+#     state: directory
+#     owner: root
+#     group: root
+#     mode: "1777"
+#   tags:
+#     - raid
+#     - storage

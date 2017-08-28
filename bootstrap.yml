@@ -1,7 +1,19 @@
 ---
-# file bootstrap.yml
+# ansible-playbook -i inventory bootstrap.yml
+# use -l to narrow down the hosts in the inventory file
 
-- hosts: localhost
-  tasks:
-    - name: install role dependencies
-      local_action: command ansible-galaxy install --roles-path ./roles/community --force --ignore-errors -r requirements.yml
+- hosts: all
+  become: yes
+
+  gather_facts: False
+  pre_tasks:
+    - name: Install Python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when: output.stdout != ""
+    - hostname:
+        name: "{{ inventory_hostname }}"
+  roles:
+    - local-apt
+    - hosts
+

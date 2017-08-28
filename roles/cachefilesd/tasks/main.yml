@@ -22,4 +22,4 @@
   notify: "restart cachefilesd"
 
 - name: cachefilesd | start
-  service: name=cachefilesd state=started enabled=yes
+  service: name=cachefilesd state=reloaded enabled=yes

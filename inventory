@@ -1,2 +1,5 @@
-[dgx]
-dgx08	ansible_ssh_host=10.31.241.163
+[slurm-masters]
+slurm-master-01   ansible_ssh_host=10.31.228.60
+
+#[dgx]
+#dgx10    ansible_ssh_host=dgx

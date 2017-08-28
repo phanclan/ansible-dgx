@@ -1,2 +1,7 @@
 user: ubuntu
+ansible_ssh_user: ubuntu
 cache_valid_time: 3600
+
+local_apt:
+  host: 10.31.228.55
+  path: dgx-baseos3

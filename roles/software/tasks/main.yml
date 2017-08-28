@@ -1,11 +1,11 @@
 ---
-- name: add dgx repo
-  apt_repository:
-    filename: 'dgx'
-    repo: "{{ dgx_repo }}"
-    state: 'present'
-    update_cache: 'yes'
-    validate_certs: 'no'
+# - name: add dgx repo
+#   apt_repository:
+#     filename: 'dgx'
+#     repo: "{{ dgx_repo }}"
+#     state: 'present'
+#     update_cache: 'yes'
+#     validate_certs: 'no'
 
 - name: apt update
   apt:

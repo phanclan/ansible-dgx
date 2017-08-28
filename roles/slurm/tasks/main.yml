@@ -1,0 +1,8 @@
+
+- include: munge.yml
+
+- include: controller.yml
+  when: is_controller
+
+- include: compute.yml
+  when: is_compute

@@ -1,0 +1,106 @@
+---
+
+- name: install mariadb
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - mariadb-server
+    - python-mysqldb
+
+- name: setup slurm db user
+  mysql_user:
+    name: "{{ slurm_db_username }}"
+    password: "{{ slurm_db_password }}"
+    host: localhost
+    priv: "*.*:USAGE/slurm_acct_db.*:ALL"
+    state: present
+
+- name: install slurm
+  apt:
+    name: slurm
+    state: latest
+
+- name: create slurm user
+  user:
+    name: slurm
+    state: present
+    system: yes
+
+- name: create slurm directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: slurm
+    mode: 0755
+  with_items:
+    - /etc/slurm
+    - /var/spool/slurm/ctld
+    - /var/log/slurm
+
+- name: copy slurmdbd service file
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+  with_items:
+    - slurmdbd.service
+    - slurmctld.service
+
+- name: copy configuration files
+  template:
+    src: "{{ item }}"
+    dest: "/etc/slurm/{{ item }}"
+  with_items:
+    - slurm.conf
+    - slurmdbd.conf
+  notify:
+    - restart slurmdbd
+
+- name: start slurmdbd
+  systemd:
+    name: slurmdbd
+    state: started
+    enabled: yes
+    daemon-reload: yes
+
+- name: create cluster
+  command: sacctmgr -i add cluster {{ slurm_cluster_name }}
+  ignore_errors: yes
+
+
+- name: create account
+  command: sacctmgr -i add account compute-account Description="Compute Accounts" Organization="Prestige"
+  ignore_errors: yes
+
+- name: create users
+  command: sacctmgr -i create user {{ item }} account=compute-account adminlevel=None
+  ignore_errors: yes
+  with_items:
+    - doug
+    - mike
+
+## -- useradd slurm
+## -- $ mkdir -p /etc/slurm /var/spool/slurm/ctld /var/spool/slurm/d /var/log/slurm
+## -- $ chown slurm /var/spool/slurm/ctld /var/spool/slurm/d /var/log/slurm
+## --
+## -- Copy into place config files from this repo which you've already cloned into /storage
+## -- $ cd /storage
+## -- $ cp ubuntu-slurm/slurmdbd.service /etc/systemd/system/
+## -- $ cp ubuntu-slurm/slurmctld.service /etc/systemd/system/
+## --
+## -- Edit /storage/ubuntu-slurm/slurm.conf and replace AccountingStoragePass=slurmdbpass with the DB password
+## -- you used in the above SQL section.
+## -- $ cp ubuntu-slurm/slurm.conf /etc/slurm/
+## --
+## -- Edit /storage/ubuntu-slurm/slurmdbd.conf and replace StoragePass=slrumdbpass with the DB password you used
+## -- in the above SQL section.
+## -- $ cp ubuntu-slurm/slurmdbd.conf /etc/slurm/
+## --
+## -- $ systemctl daemon-reload
+## -- $ systemctl enable slurmdbd
+## -- $ systemctl start slurmdbd
+## -- $ sacctmgr add cluster compute-cluster
+## -- $ sacctmgr add account compute-account description "Compute accounts" Organization=OurOrg
+## -- $ sacctmgr create user myuser account=compute-account adminlevel=None
+## -- $ systemctl enable slurmctld
+## -- $ systemctl start slurmctld
