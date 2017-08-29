@@ -16,4 +16,5 @@
   roles:
     - local-apt
     - hosts
+    - facts
 

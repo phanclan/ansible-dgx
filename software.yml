@@ -43,7 +43,7 @@
 
   - name: modify default user
     user:
-      name: "{{ user}}"
+      name: "{{ user }}"
       groups: docker
       append: yes
     tags:

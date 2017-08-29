@@ -1,12 +1,22 @@
 ---
 # ansible-playbook -i inventory slurm.yml
 
+- hosts: compute_nodes
+  gather_facts: no
+  become: yes
+  roles:
+    - facts
+
+- hosts: compute_nodes
+  tasks:
+    - setup
+
 - hosts: slurm-masters
   become: yes
   roles:
     - { role: slurm, is_controller: yes }
 
-- hosts: slurm-compute-nodes
+- hosts: compute-nodes
   become: yes
   roles:
     - { role: slurm, is_compute: yes }
