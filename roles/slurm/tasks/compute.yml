@@ -12,7 +12,7 @@
     - file:
         path: /var/run/reboot-required
         state: touch
-  when: update_grub|changed
+  when: update_grub.changed
 
 - name: create slurm directories
   file:

@@ -33,6 +33,7 @@
     - tesla-software
 
 - hosts: compute-nodes
+  become: true
   tasks:
   - name: modify default user
     user:
