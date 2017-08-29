@@ -1,15 +1,9 @@
 ---
 # ansible-playbook -i inventory slurm.yml
 
-- hosts: compute_nodes
-  gather_facts: no
-  become: yes
-  roles:
-    - facts
-
-- hosts: compute_nodes
-  tasks:
-    - setup
+- hosts: compute-nodes
+  pre_tasks:
+    - setup:
 
 - hosts: slurm-masters
   become: yes

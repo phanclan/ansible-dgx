@@ -1,6 +1,18 @@
 
 - include: munge.yml
 
+- name: install slurm
+  apt:
+    name: slurm
+    state: latest
+
+- name: create slurm user
+  user:
+    name: slurm
+    state: present
+    system: yes
+    uid: 22078
+
 - include: controller.yml
   when: is_controller
 

@@ -16,17 +16,6 @@
     priv: "*.*:USAGE/slurm_acct_db.*:ALL"
     state: present
 
-- name: install slurm
-  apt:
-    name: slurm
-    state: latest
-
-- name: create slurm user
-  user:
-    name: slurm
-    state: present
-    system: yes
-
 - name: create slurm directories
   file:
     path: "{{ item }}"
@@ -55,6 +44,7 @@
     - slurmdbd.conf
   notify:
     - restart slurmdbd
+    - restart slurmctld
 
 - name: start slurmdbd
   systemd:
@@ -76,8 +66,14 @@
   command: sacctmgr -i create user {{ item }} account=compute-account adminlevel=None
   ignore_errors: yes
   with_items:
-    - doug
-    - mike
+    - "{{ user }}"
+
+- name: start slurmctld
+  systemd:
+    name: slurmctld
+    state: started
+    enabled: yes
+    daemon-reload: yes
 
 ## -- useradd slurm
 ## -- $ mkdir -p /etc/slurm /var/spool/slurm/ctld /var/spool/slurm/d /var/log/slurm
