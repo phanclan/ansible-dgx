@@ -4,17 +4,22 @@
 
 - hosts: all
   become: yes
-
   gather_facts: False
-  pre_tasks:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - local-apt
+  tasks:
     - name: Install Python for Ansible
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
       register: output
       changed_when: output.stdout != ""
     - hostname:
         name: "{{ inventory_hostname }}"
+
+- hosts: all
+  become: yes
   roles:
-    - local-apt
     - hosts
     - facts
 
