@@ -1,0 +1,18 @@
+---
+
+- name: Check for system reboot
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_result
+
+- name: restart server
+  block:
+
+  - shell: sleep 2 && /sbin/shutdown -r now "Reboot required"
+    async: 1
+    poll: 0
+
+  - local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=15 timeout=120
+    become: false
+
+  when: reboot_result.stat.exists == True

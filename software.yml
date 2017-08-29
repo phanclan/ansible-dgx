@@ -1,14 +1,42 @@
 ---
 # ansible-playbook -i inventory -l dgx software.yml
 
+- hosts: compute-nodes
+  become: true
+  tasks:
+    - name: upgrade installed packages
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        upgrade: safe
+
 - hosts: dgx-servers
   become: yes
   roles:
     - dgx-software
     - cachefilesd
-
+    - reboot
   tasks:
+  - name: change permissions on /raid
+    file:
+      path: /raid
+      state: directory
+      owner: root
+      group: root
+      mode: "1777"
+    tags:
+      - raid
+      - storage
 
+- hosts: tesla-servers
+  become: yes
+  roles:
+    - tesla-software
+    - reboot
+
+- hosts: compute-nodes
+  become: true
+  tasks:
   - name: clean up packages
     apt:
       autoremove: yes
@@ -21,14 +49,4 @@
     tags:
       - user
 
-  - name: change permissions on /raid
-    file:
-      path: /raid
-      state: directory
-      owner: root
-      group: root
-      mode: "1777"
-    tags:
-      - raid
-      - storage
 

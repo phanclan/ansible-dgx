@@ -1,11 +1,12 @@
 [slurm-masters]
 slurm-master-01   ansible_ssh_host=10.31.228.60
 
-[slurm-compute-nodes]
+[dgx-servers]
 
+[tesla-servers]
+volta01           ansible_ssh_host=10.31.228.71
+volta02           ansible_ssh_host=10.31.228.68
 
-[dgx-servers:children]
-#dgx*
-
-[telsa-servers:children]
-#<chip>-<gpu>-*
+[compute-nodes:children]
+dgx-servers
+tesla-servers
