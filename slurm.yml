@@ -14,3 +14,4 @@
   become: yes
   roles:
     - { role: slurm, is_compute: yes }
+    - reboot

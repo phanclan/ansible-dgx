@@ -1,59 +1,7 @@
 ---
-# ansible-playbook -i inventory -l dgx site.yml
+# ansible-playbook -i inventory  site.yml
 
+- include: bootstrap.yml
+- include: software.yml
+- include: slurm.yml
 
-# Install ansible python dependency on Ubuntu 16.04
-- hosts: all
-  become: yes
-# become_method: sudo
-# remote_user: "{{ user }}"
-
-  gather_facts: False
-  pre_tasks:
-
-    - name: Install Python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      register: output
-      changed_when: output.stdout != ""
-
-    - hostname:
-        name: "{{ inventory_hostname }}"
-
-#   - setup: # aka gather_facts
-
-  roles:
-    - local-apt
-    - hosts
-
-- hosts: slurm-masters
-  become: yes
-# become_method: sudo
-# remote_user: "{{ user }}"
-  roles:
-#   - dgx-software
-#   - cachefilesd
-    - { role: slurm, is_controller: yes }
-
-  tasks:
-  - name: clean up packages
-    apt:
-      autoremove: yes
-
-# - name: modify default user
-#   user:
-#     name: "{{ user}}"
-#     groups: docker
-#     append: yes
-#   tags:
-#     - user
-#
-# - name: change permissions on /raid
-#   file:
-#     path: /raid
-#     state: directory
-#     owner: root
-#     group: root
-#     mode: "1777"
-#   tags:
-#     - raid
-#     - storage

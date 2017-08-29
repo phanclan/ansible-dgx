@@ -19,15 +19,3 @@
     name: slurmctld
     state: restarted
 
-- name: update grub
-  command: update-grub
-
-- name: reboot
-  block:
-
-  - shell: sleep 2 && /sbin/shutdown -r now "Reboot required"
-    async: 1
-    poll: 0
-
-  - local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=15 timeout=120
-    become: false

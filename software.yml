@@ -1,7 +1,7 @@
 ---
 # ansible-playbook -i inventory -l dgx software.yml
 
-- hosts: compute-nodes
+- hosts: all
   become: true
   tasks:
     - name: upgrade installed packages
@@ -15,7 +15,6 @@
   roles:
     - dgx-software
     - cachefilesd
-    - reboot
   tasks:
   - name: change permissions on /raid
     file:
@@ -32,15 +31,9 @@
   become: yes
   roles:
     - tesla-software
-    - reboot
 
 - hosts: compute-nodes
-  become: true
   tasks:
-  - name: clean up packages
-    apt:
-      autoremove: yes
-
   - name: modify default user
     user:
       name: "{{ user }}"
@@ -49,4 +42,11 @@
     tags:
       - user
 
-
+- hosts: all
+  become: true
+  roles:
+    - reboot
+  tasks:
+  - name: clean up packages
+    apt:
+      autoremove: yes

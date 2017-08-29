@@ -1,12 +1,18 @@
 ---
-- name: update grub
+- name: add cgroups to grub options
   lineinfile:
     dest: /etc/default/grub
     regexp: "^GRUB_CMDLINE_LINUX="
     line: 'GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"'
-  notify:
-    - update grub
-    - reboot
+  register: update_grub
+
+- name: update grub
+  block:
+    - command: update-grub
+    - file:
+        path: /var/run/reboot-required
+        state: touch
+  when: update_grub|changed
 
 - name: create slurm directories
   file:

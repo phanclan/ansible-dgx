@@ -5,18 +5,5 @@ slurm_password: ReplaceWithASecurePasswordInTheVault
 slurm_db_username: slurm
 slurm_db_password: AlsoReplaceWithASecurePasswordInTheVault
 
-slurm_master_hostname: slurm-master
-
-slurm_nodes:
-  - name: dgx01
-    sockets:
-      - cores: "0-19"
-        gpus: "0-3"
-      - cores: "20-39"
-        gpus: "4-7"
-
 is_controller: no
 is_compute: no
-
-## -- NodeName=linux1 Gres=gpu:2 CPUs=2 Sockets=1 CoresPerSocket=2 ThreadsPerCore=1 Procs=1 State=UNKNOWN
-## -- PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
