@@ -1,6 +1,5 @@
 ---
 # ansible-playbook -i inventory bootstrap.yml
-# use -l to narrow down the hosts in the inventory file
 
 - hosts: all
   become: yes
@@ -22,4 +21,3 @@
   roles:
     - hosts
     - facts
-
