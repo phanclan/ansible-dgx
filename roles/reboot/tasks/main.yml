@@ -12,7 +12,7 @@
     async: 1
     poll: 0
 
-  - local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=15 timeout=120
+  - local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=15 timeout={{ reboot_timeout }}
     become: false
 
   when: reboot_result.stat.exists == True
