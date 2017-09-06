@@ -13,3 +13,4 @@
     mode: 0755
   with_items:
     - topology.fact
+    - memory.fact
