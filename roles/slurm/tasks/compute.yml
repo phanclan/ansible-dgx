@@ -49,3 +49,5 @@
     state: started
     enabled: yes
     daemon-reload: yes
+
+# TODO: add pam_slurm.so and configure ssh to disable user logins to compute nodes
