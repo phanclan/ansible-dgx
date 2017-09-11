@@ -6,8 +6,6 @@ local_apt:
   host: 10.31.228.55
   path: dgx-baseos3
 
-admin_group: sudo
-
 user_list:
   - name: "test user"
     username: "ubuntu"
