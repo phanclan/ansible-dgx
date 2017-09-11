@@ -5,16 +5,30 @@
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups }}"
     remove: yes
-    generate_ssh_key: yes
   when: item.username is defined
   with_items:
     - "{{ user_list }}"
 
-- name: set user authorized key
+- name: Add SSH-keys to users
   authorized_key:
-    user: "{{ item.username }}"
-    state: present
-    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-  when: item.username is defined
-  with_items:
-    - "{{ user_list }}"
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ full_admin_list }}"
+    - keys.active
+    - flags:
+      skip_missing: True
+  when: item.0.state != "absent"
+
+- name: Remove old SSH-keys from users
+  authorized_key:
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+    state: absent
+  with_subelements:
+    - "{{ full_admin_list }}"
+    - keys.disabled
+    - flags:
+      skip_missing: True
+  when: item.0.state != "absent"
+  tags: ['debug']
