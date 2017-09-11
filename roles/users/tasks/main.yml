@@ -14,7 +14,7 @@
     user: "{{ item.0.username }}"
     key: "{{ item.1 }}"
   with_subelements:
-    - "{{ full_admin_list }}"
+    - "{{ user_list }}"
     - keys.active
     - flags:
       skip_missing: True
@@ -26,7 +26,7 @@
     key: "{{ item.1 }}"
     state: absent
   with_subelements:
-    - "{{ full_admin_list }}"
+    - "{{ user_list }}"
     - keys.disabled
     - flags:
       skip_missing: True
