@@ -15,3 +15,6 @@
     user: "{{ item.username }}"
     state: present
     key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+  when: item.username is defined
+  with_items:
+    - "{{ user_list }}"
