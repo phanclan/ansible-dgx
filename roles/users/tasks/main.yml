@@ -5,7 +5,6 @@
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups }}"
     remove: yes
-    generate_ssh_key: yes
   when: item.username is defined
   with_items:
     - "{{ user_list }}"
