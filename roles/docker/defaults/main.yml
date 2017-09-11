@@ -1,0 +1,11 @@
+---
+docker:
+  storage_driver: overlay2
+  disable_legacy_registry: false
+
+#docker_bridge_ip: 192.168.99.1/24
+##docker_container_ip: 192.168.99.0/24
+#docker_dns:
+#  - 8.8.8.8
+#    - 8.8.4.4
+#    docker_storage_driver: overlay2
