@@ -1,27 +1,29 @@
-- name: Create admin group
+- name: create admin group
   group: name={{ admin_group }} state=present
 
-# Combine two user lists here
-- set_fact: full_admin_list="{{ company_admin_list + project_admin_list }}"
-  tags: ['debug']
+- name: Add admin group to sudoers
+  lineinfile: dest=/etc/sudoers regexp="^%{{ admin_group }}" line="%{{ admin_group }} ALL=(ALL) NOPASSWD:ALL"
 
-- name: Setup all users
+- name: Disable Requiretty from sudoers
+  lineinfile: dest=/etc/sudoers regexp="Defaults    requiretty" line="#Defaults    requiretty"
+
+- name: set up users
   user:
     name: "{{ item.username }}"
     state: "{{ item.state | default('present') }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
-    group: "{{ admin_group }}"
+    groups: "{{ item.groups }}"
     remove: yes
   when: item.username is defined
   with_items:
-    - "{{ full_admin_list }}"
+    - "{{ user_list }}"
 
 - name: Add SSH-keys to users
   authorized_key:
     user: "{{ item.0.username }}"
     key: "{{ item.1 }}"
   with_subelements:
-    - "{{ full_admin_list }}"
+    - "{{ user_list }}"
     - keys.active
     - flags:
       skip_missing: True
@@ -33,14 +35,10 @@
     key: "{{ item.1 }}"
     state: absent
   with_subelements:
-    - "{{ full_admin_list }}"
+    - "{{ user_list }}"
     - keys.disabled
     - flags:
       skip_missing: True
   when: item.0.state != "absent"
   tags: ['debug']
-- name: Add admin group to sudoers
-  lineinfile: dest=/etc/sudoers regexp="^%{{ admin_group }}" line="%{{ admin_group }} ALL=(ALL) NOPASSWD:ALL"
 
-- name: Disable Requiretty from sudoers
-  lineinfile: dest=/etc/sudoers regexp="Defaults    requiretty" line="#Defaults    requiretty"
