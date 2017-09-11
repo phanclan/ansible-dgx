@@ -34,6 +34,8 @@
 
 - hosts: compute-nodes
   become: true
+  roles:
+    - docker
   tasks:
   - name: modify default user
     user:
@@ -48,6 +50,7 @@
   roles:
     - reboot
   tasks:
+
   - name: clean up packages
     apt:
       autoremove: yes

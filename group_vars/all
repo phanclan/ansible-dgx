@@ -1,3 +1,5 @@
+ngc_domain: ngc.local
+
 user: ubuntu
 ansible_ssh_user: ubuntu
 cache_valid_time: 3600
@@ -5,3 +7,20 @@ cache_valid_time: 3600
 local_apt:
   host: 10.31.228.55
   path: dgx-baseos3
+
+docker:
+  storage_driver: overlay2
+  disable_legacy_registry: false
+  bip: 192.168.99.1/24
+  fixed_cidr: 192.168.99.0/24
+
+nfs_mounts: []
+# - mountpoint: /mnt/example/template
+#   server: hostname_or_ip
+#   path: /remote/path
+#   options: async
+
+# -- DO NOT EDIT BELOW THIS LINE --
+
+nis_domain: "{{ ngc_domain }}"
+nis_server: "{{ groups['slurm-masters'][0] }}"
