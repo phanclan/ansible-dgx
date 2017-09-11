@@ -1,0 +1,5 @@
+- name: Setup admin users
+  hosts: all
+  become: true
+  roles:
+    - users
