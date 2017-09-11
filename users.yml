@@ -1,4 +1,4 @@
-- name: Setup admin users
+- name: add users
   hosts: all
   become: true
   roles:
