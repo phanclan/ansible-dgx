@@ -9,10 +9,7 @@ local_apt:
 user_list:
   - name: "test user"
     username: "ubuntu"
-    keys:
-      active:
-        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFRM90CVTU4BGmOF7OsgtN+4kVJ8c6brxDZewKCL5WwKa7O8DF7EN06GBj00UM5zbnQ737Aqx3tnKAlrCErgG4oAv/o2+QB0vsXxqFvLyeJsz8GAd/A5D/RK0l16+WZJdx+Oituye0/55VHgwelD5KS7raoBt91VJZLhsKEmwCyx9oDR1g5ZJyLvUsj7FnNvcTqxTzIIt7+sAeKHRBD2VXS5ZOoZTNbfCtOuqYWPeZm0hNTcPirr7R0DmHnc1ma0EpMitf+HV3jY3LtJ1BJ7pvrJdbFPaUcaQyBLT3RAA4EZ2TlafSYkbp8eguQu1aElAev9eLRFMNhwrs54QuFFQd dholt@vca10"
-    shell: "/bin/bash"
     state: present
+    shell: "/bin/bash"
     groups: sudo
 
