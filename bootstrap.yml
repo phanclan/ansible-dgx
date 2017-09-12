@@ -13,11 +13,17 @@
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
       register: output
       changed_when: output.stdout != ""
-    - hostname:
-        name: "{{ inventory_hostname }}"
 
 - hosts: all
   become: yes
+  pre_tasks:
+    - hostname:
+        name: "{{ inventory_hostname }}"
   roles:
     - hosts
     - facts
+  tasks:
+    - name: remove popularity-contest
+      apt:
+        name: popularity-contest
+        state: absent

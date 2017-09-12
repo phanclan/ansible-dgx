@@ -1,0 +1,6 @@
+---
+
+- name: install nvidia-docker2
+  apt:
+    name: nvidia-docker2
+    state: latest
