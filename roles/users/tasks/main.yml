@@ -16,7 +16,16 @@
     state: "{{ item.state | default('present') }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups }}"
+    generate_ssh_key: yes
     remove: yes
+  when: item.username is defined
+  with_items:
+    - "{{ user_list }}"
+
+- name: set ssh auth key to newly generated
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ lookup('file', '/home/' + item.username + '/.ssh/id_rsa.pub') }}"
   when: item.username is defined
   with_items:
     - "{{ user_list }}"
