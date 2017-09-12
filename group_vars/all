@@ -11,6 +11,10 @@ docker:
   disable_legacy_registry: false
   bip: 192.168.99.1/24
   fixed_cidr: 192.168.99.0/24
+  runtimes:
+    nvidia:
+      path: /usr/bin/nvidia-container-runtime
+      runtimeArgs: []
 
 nfs_mounts: []
 # - mountpoint: /mnt/example/template

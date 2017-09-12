@@ -13,6 +13,7 @@
 - hosts: dgx-servers
   become: yes
   roles:
+    - nvidia-docker2
     - dgx-software
     - cachefilesd
   tasks:
@@ -30,12 +31,12 @@
 - hosts: tesla-servers
   become: yes
   roles:
+    - nvidia-docker2
     - tesla-software
 
 - hosts: all
   become: true
   roles:
-    - docker
     - nvidia-docker2
     - singularity
   tasks:
