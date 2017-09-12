@@ -1,0 +1,14 @@
+---
+- name: nfs | ensure mountpoint exists
+  file: path={{ item.mountpoint }} state=directory
+  with_items: '{{ nfs_mounts }}'
+  when: nfs_mounts is defined
+  tags:
+    - nfs
+
+- name: nfs | configure /etc/fstab on clients
+  action: mount name={{ item.mountpoint}} src={{ item.server }}:{{ item.path }} opts={{ item.options }} fstype=nfs state=mounted
+  with_items: '{{ nfs_mounts }}'
+  when: nfs_mounts is defined
+  tags:
+    - nfs

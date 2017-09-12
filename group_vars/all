@@ -34,6 +34,10 @@ docker:
   bip: 192.168.99.1/24
   fixed_cidr: 192.168.99.0/24
 
+nfs_exports: []
+# - path: /local/path
+#   options: *(rw,sync,no_root_squash)
+
 nfs_mounts: []
 # - mountpoint: /mnt/example/template
 #   server: hostname_or_ip
