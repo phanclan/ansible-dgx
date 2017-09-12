@@ -1,3 +1,11 @@
+
+- name: create groups
+  group:
+    name: "{{ item.1 }}"
+  with_subelements:
+    - "{{ user_list }}"
+    - groups
+
 - name: create user accounts
   user:
     name: "{{ item.username }}"
