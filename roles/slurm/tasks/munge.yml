@@ -20,3 +20,4 @@
     enabled: yes
     state: started
 
+- meta: flush_handlers
