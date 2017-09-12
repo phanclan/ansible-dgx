@@ -45,3 +45,7 @@
       skip_missing: True
   when: item.0.state != "absent"
   tags: ['debug']
+
+- include: head.yml
+  when: is_controller
+
