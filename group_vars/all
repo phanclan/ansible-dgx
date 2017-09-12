@@ -38,9 +38,13 @@ docker:
       path: /usr/bin/nvidia-container-runtime
       runtimeArgs: []
 
+nfs_exports: []
+# - path: /local/path
+#   options: *(rw,sync,no_root_squash)
+
 nfs_mounts: []
 # - mountpoint: /mnt/example/template
-#   server: hostname_or_ip
+#   server: hostname_or_ip # defaults to head node if not included
 #   path: /remote/path
 #   options: async
 
