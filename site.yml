@@ -4,4 +4,4 @@
 - include: bootstrap.yml
 - include: software.yml
 - include: slurm.yml
-
+- include: users.yml
