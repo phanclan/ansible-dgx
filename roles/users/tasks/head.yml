@@ -24,12 +24,6 @@
   with_items:
     - "{{ user_list }}"
   
-- name: debug
-  debug:
-    msg: "{{ item }}"
-  with_items:
-    - "{{ pub_key }}"
-
 - name: set ssh auth key to newly generated
   authorized_key:
     user: "{{ item.item.username }}"
