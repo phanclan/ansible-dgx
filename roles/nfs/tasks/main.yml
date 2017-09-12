@@ -1,11 +1,11 @@
 ---
-- name: nfs | install ubuntu packages
+- name: install ubuntu packages
   action: apt name=nfs-common state=latest
   when: ansible_os_family == "Debian"
   tags:
     - nfs
 
-- name: nfs | configure idmapd domain for nfsv4
+- name: configure idmapd domain for nfsv4
   lineinfile:
     dest: /etc/idmapd.conf
     regexp: "^Domain"
@@ -16,8 +16,9 @@
   tags:
     - nfs
 
+- include: server.yml
+  when: is_server
+
 - include: client.yml
   when: is_client
 
-- include: server.yml
-  when: is_server
