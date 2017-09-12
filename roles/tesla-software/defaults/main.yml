@@ -16,4 +16,4 @@ default_ubuntu_packages:
   - wget
   - apparmor
   - docker-ce
-  - nvidia-docker
+  - nvidia-docker2

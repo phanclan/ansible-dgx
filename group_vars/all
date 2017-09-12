@@ -1,5 +1,3 @@
-ngc_domain: ngc.local
-
 user: ubuntu
 ansible_ssh_user: ubuntu
 cache_valid_time: 3600
@@ -21,6 +19,3 @@ nfs_mounts: []
 #   options: async
 
 # -- DO NOT EDIT BELOW THIS LINE --
-
-nis_domain: "{{ ngc_domain }}"
-nis_server: "{{ groups['slurm-masters'][0] }}"

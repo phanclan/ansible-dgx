@@ -32,10 +32,12 @@
   roles:
     - tesla-software
 
-- hosts: compute-nodes
+- hosts: all
   become: true
   roles:
     - docker
+    - nvidia-docker2
+    - singularity
   tasks:
   - name: modify default user
     user:
@@ -50,7 +52,6 @@
   roles:
     - reboot
   tasks:
-
   - name: clean up packages
     apt:
       autoremove: yes
