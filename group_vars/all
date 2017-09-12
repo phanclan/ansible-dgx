@@ -40,7 +40,7 @@ nfs_exports: []
 
 nfs_mounts: []
 # - mountpoint: /mnt/example/template
-#   server: hostname_or_ip
+#   server: hostname_or_ip # defaults to head node if not included
 #   path: /remote/path
 #   options: async
 

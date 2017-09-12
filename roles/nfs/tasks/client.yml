@@ -7,7 +7,12 @@
     - nfs
 
 - name: nfs | configure /etc/fstab on clients
-  action: mount name={{ item.mountpoint}} src={{ item.server }}:{{ item.path }} opts={{ item.options }} fstype=nfs state=mounted
+  mount:
+    name: "{{ item.mountpoint}}"
+    src: "{{ item.server | groups['head'][0] }}:{{ item.path }}"
+    opts: "{{ item.options }}"
+    fstype: nfs 
+    state: mounted
   with_items: '{{ nfs_mounts }}'
   when: nfs_mounts is defined
   tags:
