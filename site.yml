@@ -5,3 +5,4 @@
 - include: software.yml
 - include: slurm.yml
 - include: users.yml
+- include: nfs.yml
