@@ -48,4 +48,10 @@ nfs_mounts: []
 #   path: /remote/path
 #   options: async
 
+ssh_port: [22]
+ssh_permit_root_login: 'yes'
+ssh_pubkey_authentication: 'yes'
+ssh_password_authentication: 'yes'
+ssh_known_hosts: []
+
 # -- DO NOT EDIT BELOW THIS LINE --

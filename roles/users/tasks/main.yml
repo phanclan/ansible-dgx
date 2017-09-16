@@ -22,14 +22,6 @@
   with_items:
     - "{{ user_list }}"
 
-- name: set ssh auth key to newly generated
-  authorized_key:
-    user: "{{ item.username }}"
-    key: "{{ lookup('file', '/home/' + item.username + '/.ssh/id_rsa.pub') }}"
-  when: item.username is defined
-  with_items:
-    - "{{ user_list }}"
-
 - name: set ssh auth keys
   authorized_key:
     user: "{{ item.0.username }}"
@@ -53,3 +45,7 @@
       skip_missing: True
   when: item.0.state != "absent"
   tags: ['debug']
+
+- include: head.yml
+  when: is_controller
+
