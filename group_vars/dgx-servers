@@ -1,6 +1,10 @@
 ---
 
-ansible_user: ubuntu
-
-# Default system PATH
-default_path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# dgx packages will ensure overlay2 and legacy registry are properly set in the service file
+docker:
+  bip: 192.168.99.1/24
+  fixed_cidr: 192.168.99.0/24
+  runtimes:
+    nvidia:
+      path: /usr/bin/nvidia-container-runtime
+      runtimeArgs: []
