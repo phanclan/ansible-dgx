@@ -22,6 +22,15 @@
   with_items:
     - "{{ user_list }}"
 
+# mkpasswd --method=sha-512
+- name: set user password if required
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+  when: item.password is defined
+  with_items:
+    - "{{ user_list }}"
+
 - name: set ssh auth keys
   authorized_key:
     user: "{{ item.0.username }}"
