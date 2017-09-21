@@ -1,0 +1,11 @@
+---
+# ansible-playbook -i inventory single-node.yml
+
+- include: bootstrap.yml
+- include: software.yml
+- include: users.yml
+
+- hosts: all
+  become: true
+  roles:
+    - ansible-ssh
