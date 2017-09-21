@@ -11,6 +11,7 @@ user_list:
     username: "ubuntu"
     state: present
     shell: "/bin/bash"
+    password: "$6$PuZjgcJfo6ru$LrIp8MYi3Vyr6C7VfrJvintHrap52p/WKBSfT/qAQEZVJmdhTdGzHlaVVeCLknat7kvb9fLlmWPBEbI.9RHsh/"
     groups:
       - sudo
       - docker
