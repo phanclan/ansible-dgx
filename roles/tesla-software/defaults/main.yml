@@ -15,5 +15,3 @@ default_ubuntu_packages:
   - usbutils
   - wget
   - apparmor
-  - docker-ce
-  - nvidia-docker2

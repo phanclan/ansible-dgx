@@ -90,7 +90,6 @@ default_ubuntu_packages:
   - ncurses-base
   - ncurses-bin
   - ncurses-term
-  - nvidia-docker2
   - os-prober
   - shim-signed
   - usbutils
