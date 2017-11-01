@@ -23,7 +23,7 @@
     state: latest
   with_items:
     - cuda-drivers
-    - cuda-drivers-diagnostic 
+    - cuda-drivers-diagnostic
     - datacenter-gpu-manager
     - nvidia-sysinfo
     - dgx-persistence-mode
